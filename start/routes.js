@@ -8,4 +8,9 @@ Route.post('/reset-password', 'ResetPasswordController.reset')
 Route.put('/reset-password', 'ResetPasswordController.update')
 
 Route.get('/files/:id', 'FileController.show')
-Route.post('/files', 'FileController.create')
+
+Route.group(() => {
+  Route.post('/files', 'FileController.create')
+  Route.resource('/projects', 'ProjectController').apiOnly()
+  Route.resource('/projects.tasks', 'TaskController').apiOnly()
+}).middleware(['auth'])
